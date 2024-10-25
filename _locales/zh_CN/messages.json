@@ -3,22 +3,22 @@
     "message": "更好的画布"
   },
   "updates": {
-    "message": "Updates"
+    "message": "更新"
   },
   "dark_mode": {
-    "message": "Dark Mode"
+    "message": "深色模式"
   },
   "automatic_dark_mode": {
-    "message": "Scheduled Dark Mode"
+    "message": "预定的深色模式"
   },
   "auto_start_time": {
-    "message": "Start Time"
+    "message": "开始时间"
   },
   "auto_end_time": {
-    "message": "End Time"
+    "message": "结束时间"
   },
   "edit_dark_mode": {
-    "message": "Dark Mode"
+    "message": "深色模式"
   },
   "enter_url": {
     "message": "Your Canvas URL:"
