@@ -1,34 +1,59 @@
 {
+  "update_url": "https://clients2.google.com/service/update2/crx",
   "manifest_version": 3,
-  "name": "Better Canvas",
+  "name": "BetterCampus (prev. BetterCanvas)",
   "description": "Feature packed extension for Canvas.",
-  "version": "5.12.6",
+  "version": "7.1.0",
   "icons": {
     "16": "icon/icon-16.png",
     "32": "icon/icon-32.png",
     "48": "icon/icon-48.png",
     "128": "icon/icon-128.png"
   },
-  "action": {
-    "default_icon": {
-      "19": "icon/icon-19.png",
-      "38": "icon/icon-38.png"
-    },
-    "default_popup": "html/popup.html",
-    "default_title": "Better Canvas"
-  },
-  "background": {
-    "service_worker": "js/background.js"
-  },
-  "options_page": "html/options.html",
-  "content_scripts": [
+  "permissions": ["storage", "tabs"],
+  "host_permissions": ["http://localhost:3001/", "https://bettercampus.com/"],
+  "default_locale": "en",
+  "web_accessible_resources": [
     {
-      "matches": ["https://*/*"],
-      "js": ["js/content.js"],
-      "css": ["css/content.css"],
-      "run_at": "document_start"
+      "resources": ["images/fonts/*.png", "first-time/**/*.webm"],
+      "matches": ["<all_urls>"]
+    },
+    { "resources": ["content-scripts/all.css"], "matches": ["<all_urls>"] },
+    {
+      "resources": ["content-scripts/viewer.css"],
+      "matches": ["https://canvadocs.instructure.com/*"]
     }
   ],
-  "permissions": ["storage"],
-  "default_locale": "en"
+  "action": {
+    "default_title": "BetterCampus",
+    "default_icon": {
+      "16": "icon/icon-16.png",
+      "32": "icon/icon-32.png",
+      "48": "icon/icon-48.png",
+      "128": "icon/icon-128.png"
+    }
+  },
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "run_at": "document_start",
+      "js": ["content-scripts/all.js"]
+    },
+    {
+      "matches": [
+        "http://localhost:3001/themes*",
+        "https://bettercampus.com/themes*"
+      ],
+      "run_at": "document_idle",
+      "css": ["content-scripts/theme.css"],
+      "js": ["content-scripts/theme.js"]
+    },
+    {
+      "matches": ["https://canvadocs.instructure.com/*"],
+      "all_frames": true,
+      "run_at": "document_idle",
+      "js": ["content-scripts/viewer.js"]
+    }
+  ]
 }
